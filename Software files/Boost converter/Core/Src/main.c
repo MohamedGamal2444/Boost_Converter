@@ -45,7 +45,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+	int main_CRR_value = 1919;
+	float duty_cycle_percentage = 0.0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -75,7 +76,6 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -91,13 +91,19 @@ int main(void)
   MX_ADC1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+	duty_cycle_percentage = HAL_TIM_SET_DUTY(main_CRR_value);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		for(int i = 0; i<main_CRR_value; i+=20){
+				duty_cycle_percentage = HAL_TIM_SET_DUTY(i);
+				HAL_Delay(10);
+		
+		}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

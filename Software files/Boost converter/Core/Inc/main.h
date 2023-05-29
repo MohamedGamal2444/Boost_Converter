@@ -61,8 +61,10 @@ void Error_Handler(void);
 #define Current_measurement_GPIO_Port GPIOA
 #define Upper_Voltage_Interrupt_Pin GPIO_PIN_2
 #define Upper_Voltage_Interrupt_GPIO_Port GPIOA
+#define Upper_Voltage_Interrupt_EXTI_IRQn EXTI2_IRQn
 #define Lower_Voltage_Interrupt_Pin GPIO_PIN_3
 #define Lower_Voltage_Interrupt_GPIO_Port GPIOA
+#define Lower_Voltage_Interrupt_EXTI_IRQn EXTI3_IRQn
 #define Voltage_Measurement_Pin GPIO_PIN_5
 #define Voltage_Measurement_GPIO_Port GPIOA
 #define Firing_Pin_Pin GPIO_PIN_8
