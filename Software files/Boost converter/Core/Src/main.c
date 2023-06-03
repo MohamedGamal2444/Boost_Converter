@@ -45,6 +45,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+	int interrupt_state_flag = 0;
 	int main_CRR_value = 1919;
 	float duty_cycle_percentage = 0.0;
 /* USER CODE END PV */
@@ -52,7 +53,8 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+void brightup_function(void);
+void brightdown_function(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -91,7 +93,7 @@ int main(void)
   MX_ADC1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-	duty_cycle_percentage = HAL_TIM_SET_DUTY(main_CRR_value);
+	duty_cycle_percentage = HAL_TIM_SET_DUTY(10);
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   /* USER CODE END 2 */
 
@@ -99,13 +101,18 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-		for(int i = 0; i<main_CRR_value; i+=20){
-				duty_cycle_percentage = HAL_TIM_SET_DUTY(i);
-				HAL_Delay(10);
 		
-		}
     /* USER CODE END WHILE */
-
+			//brightdown_function();
+		if (interrupt_state_flag == 1){
+			brightup_function();
+			interrupt_state_flag = 0;
+		}
+		
+		else if (interrupt_state_flag == 2){
+			brightdown_function();
+			interrupt_state_flag = 0;
+		}
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -158,7 +165,33 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+	if (GPIO_Pin == Upper_Voltage_Interrupt_Pin){
+		//call bright up function 
+		interrupt_state_flag = 1;		
+	}
+	else if (GPIO_Pin == Lower_Voltage_Interrupt_Pin){
+		interrupt_state_flag = 2;		
+	}
+	
+}
 
+void brightup_function(void){
+	for(int i = 0; i<main_CRR_value; i+=20){
+		//interrupt_state_flag = 1;		
+		duty_cycle_percentage = HAL_TIM_SET_DUTY(i);
+		HAL_Delay(1);
+				
+		}
+	interrupt_state_flag = 0;		
+}
+void brightdown_function(){
+	for(int i = main_CRR_value; i>0; i-=20){
+				duty_cycle_percentage = HAL_TIM_SET_DUTY(i);
+				HAL_Delay(1);
+				interrupt_state_flag = 2;
+		}
+}
 /* USER CODE END 4 */
 
 /**
