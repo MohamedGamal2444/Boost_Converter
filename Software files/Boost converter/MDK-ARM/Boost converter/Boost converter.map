@@ -44,8 +44,8 @@ Section Cross References
     main.o(i.main) refers to usart.o(i.MX_USART1_UART_Init) for MX_USART1_UART_Init
     main.o(i.main) refers to tim.o(i.HAL_TIM_SET_DUTY) for HAL_TIM_SET_DUTY
     main.o(i.main) refers to stm32f1xx_hal_tim.o(i.HAL_TIM_PWM_Start) for HAL_TIM_PWM_Start
-    main.o(i.main) refers to main.o(i.brightdown_function) for brightdown_function
     main.o(i.main) refers to main.o(i.brightup_function) for brightup_function
+    main.o(i.main) refers to main.o(i.brightdown_function) for brightdown_function
     main.o(i.main) refers to main.o(.data) for .data
     main.o(i.main) refers to tim.o(.bss) for htim1
     gpio.o(i.MX_GPIO_Init) refers to stm32f1xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init

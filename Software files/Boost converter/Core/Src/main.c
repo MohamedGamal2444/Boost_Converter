@@ -105,12 +105,12 @@ int main(void)
     /* USER CODE END WHILE */
 			//brightdown_function();
 		if (interrupt_state_flag == 1){
-			brightup_function();
+			brightdown_function();
 			interrupt_state_flag = 0;
 		}
 		
 		else if (interrupt_state_flag == 2){
-			brightdown_function();
+			brightup_function();
 			interrupt_state_flag = 0;
 		}
     /* USER CODE BEGIN 3 */
